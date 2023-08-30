@@ -106,14 +106,6 @@ namespace dht11 {
     }
 
     /**
-    * Select temperature type (Celsius/Fahrenheit)"
-    */
-    //% block="Temperature type: $temp" advanced=true
-    export function selectTempType(temp: tempType) {
-        _temptype = temp
-    }
-
-    /**
     * Determind if last query is successful (checksum ok)
     */
     //% block="Last query successful?"
