@@ -37,12 +37,12 @@ namespace dht11_dht22 {
     * Query data from DHT11/DHT22 sensor. If you are using 4 pins/no PCB board versions, you'll need to pull up the data pin. 
     * It is also recommended to wait 1 (DHT11) or 2 (DHT22) seconds between each query.
     */
-    //% block="Query |Data pin $dataPin|Wait 2 sec after query $wait"
+    //% block="Query |Data pin $dataPin"
     //% pullUp.defl=true
     //% serialOtput.defl=false
     //% wait.defl=true
     //% blockExternalInputs=true
-    export function queryData(dataPin: DigitalPin, wait: boolean) {
+    export function queryData(dataPin: DigitalPin) {
 
         //initialize
         let startTime: number = 0
@@ -110,10 +110,6 @@ namespace dht11_dht22 {
             }
 
         }
-
-        //wait 2 sec after query if needed
-        if (wait) basic.pause(2000)
-
     }
 
     /**
