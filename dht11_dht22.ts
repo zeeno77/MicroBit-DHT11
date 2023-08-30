@@ -25,7 +25,7 @@ enum tempType {
 }
 
 //% block="DHT11/DHT22" weight=100 color=#ff8f3f icon="\uf043"
-namespace dht11_dht22 {
+namespace humedadYTemperatura {
 
     let _temperature: number = -999.0
     let _humidity: number = -999.0
@@ -42,7 +42,7 @@ namespace dht11_dht22 {
     //% serialOtput.defl=false
     //% wait.defl=true
     //% blockExternalInputs=true
-    export function queryData(dataPin: DigitalPin) {
+    export function leerSensor(dataPin: DigitalPin) {
 
         //initialize
         let startTime: number = 0
@@ -51,7 +51,6 @@ namespace dht11_dht22 {
         let checksumTmp: number = 0
         let dataArray: boolean[] = []
         let resultArray: number[] = []
-        let DHTstr: string = "DHT11" 
 
         for (let index = 0; index < 40; index++) dataArray.push(false)
         for (let index = 0; index < 5; index++) resultArray.push(0)
