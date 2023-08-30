@@ -37,12 +37,12 @@ namespace dht11_dht22 {
     * Query data from DHT11/DHT22 sensor. If you are using 4 pins/no PCB board versions, you'll need to pull up the data pin. 
     * It is also recommended to wait 1 (DHT11) or 2 (DHT22) seconds between each query.
     */
-    //% block="Query $DHT|Data pin $dataPin|Pin pull up $pullUp|Serial output $serialOtput|Wait 2 sec after query $wait"
+    //% block="Query |Data pin $dataPin|Wait 2 sec after query $wait"
     //% pullUp.defl=true
     //% serialOtput.defl=false
     //% wait.defl=true
     //% blockExternalInputs=true
-    export function queryData(DHT: DHTtype, dataPin: DigitalPin, pullUp: boolean, serialOtput: boolean, wait: boolean) {
+    export function queryData(dataPin: DigitalPin, wait: boolean) {
 
         //initialize
         let startTime: number = 0
@@ -51,7 +51,7 @@ namespace dht11_dht22 {
         let checksumTmp: number = 0
         let dataArray: boolean[] = []
         let resultArray: number[] = []
-        let DHTstr: string = (DHT == DHTtype.DHT11) ? "DHT11" : "DHT22"
+        let DHTstr: string = "DHT11" 
 
         for (let index = 0; index < 40; index++) dataArray.push(false)
         for (let index = 0; index < 5; index++) resultArray.push(0)
@@ -66,15 +66,11 @@ namespace dht11_dht22 {
         pins.digitalWritePin(dataPin, 0) //begin protocol, pull down pin
         basic.pause(18)
         
-        if (pullUp) pins.setPull(dataPin, PinPullMode.PullUp) //pull up data pin if needed
+        pins.setPull(dataPin, PinPullMode.true) //pull up data pin if needed
         pins.digitalReadPin(dataPin) //pull up pin
         control.waitMicros(40)
         
         if (pins.digitalReadPin(dataPin) == 1) {
-            if (serialOtput) {
-                serial.writeLine(DHTstr + " not responding!")
-                serial.writeLine("----------------------------------------")
-            }
 
         } else {
 
@@ -108,35 +104,9 @@ namespace dht11_dht22 {
 
             //read data if checksum ok
             if (_readSuccessful) {
-                if (DHT == DHTtype.DHT11) {
                     //DHT11
                     _humidity = resultArray[0] + resultArray[1] / 100
                     _temperature = resultArray[2] + resultArray[3] / 100
-                } else {
-                    //DHT22
-                    let temp_sign: number = 1
-                    if (resultArray[2] >= 128) {
-                        resultArray[2] -= 128
-                        temp_sign = -1
-                    }
-                    _humidity = (resultArray[0] * 256 + resultArray[1]) / 10
-                    _temperature = (resultArray[2] * 256 + resultArray[3]) / 10 * temp_sign
-                }
-                if (_temptype == tempType.fahrenheit)
-                    _temperature = _temperature * 9 / 5 + 32
-            }
-
-            //serial output
-            if (serialOtput) {
-                serial.writeLine(DHTstr + " query completed in " + (endTime - startTime) + " microseconds")
-                if (_readSuccessful) {
-                    serial.writeLine("Checksum ok")
-                    serial.writeLine("Humidity: " + _humidity + " %")
-                    serial.writeLine("Temperature: " + _temperature + (_temptype == tempType.celsius ? " *C" : " *F"))
-                } else {
-                    serial.writeLine("Checksum error")
-                }
-                serial.writeLine("----------------------------------------")
             }
 
         }
