@@ -1,16 +1,13 @@
 {
-    "name": "pxt-DHT11_DHT22",
-    "version": "0.0.3",
+    "name": "Microbit-DHT11",
+    "version": "0.0.1",
     "description": "MakeCode extension for DHT11 humidity and temperature sensors",
     "dependencies": {
         "core": "*"
     },
     "files": [
         "README.md",
-        "dht11_dht22.ts"
-    ],
-    "testFiles": [
-        "test.ts"
+        "dht11.ts"
     ],
     "public": true
 }
