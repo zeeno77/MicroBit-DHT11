@@ -66,7 +66,7 @@ namespace dht11_dht22 {
         pins.digitalWritePin(dataPin, 0) //begin protocol, pull down pin
         basic.pause(18)
         
-        pins.setPull(dataPin, PinPullMode.true) //pull up data pin if needed
+        pins.setPull(dataPin, PinPullMode.PullUp) //pull up data pin if needed
         pins.digitalReadPin(dataPin) //pull up pin
         control.waitMicros(40)
         
