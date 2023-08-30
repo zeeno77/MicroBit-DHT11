@@ -1,7 +1,7 @@
 {
-    "name": "Microbit-DHT11",
+    "name": "Microbit-DHT11-Humidity-Temperature",
     "version": "0.0.1",
-    "description": "MakeCode extension for DHT11 humidity and temperature sensors",
+    "description": "MakeCode extension for DHT11 humidity and temperature sensor",
     "dependencies": {
         "core": "*"
     },
