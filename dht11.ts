@@ -11,19 +11,11 @@ enum dataType {
     temperature,
 }
 
-enum tempType {
-    //% block="Celsius (*C)"
-    celsius,
-    //% block="Fahrenheit (*F)"
-    fahrenheit,
-}
-
-//% block="DHT11/DHT22" weight=100 color=#ff8f3f icon="\uf043"
-namespace humedadYTemperatura {
+//% block="Humedad y Temperatura" weight=100 color=#ff8f3f icon="\uf043"
+namespace dht11 {
 
     let _temperature: number = -999.0
     let _humidity: number = -999.0
-    let _temptype: tempType = tempType.celsius
     let _readSuccessful: boolean = false
     let _sensorresponding: boolean = false
 
@@ -31,12 +23,12 @@ namespace humedadYTemperatura {
     * Query data from DHT11/DHT22 sensor. If you are using 4 pins/no PCB board versions, you'll need to pull up the data pin. 
     * It is also recommended to wait 1 (DHT11) or 2 (DHT22) seconds between each query.
     */
-    //% block="Query |Data pin $dataPin"
+    //% block="leerSensor |Data pin $dataPin"
     //% pullUp.defl=true
     //% serialOtput.defl=false
     //% wait.defl=true
     //% blockExternalInputs=true
-    export function leerSensor(dataPin: DigitalPin) {
+    export function query(dataPin: DigitalPin) {
 
         //initialize
         let startTime: number = 0
