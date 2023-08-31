@@ -20,10 +20,9 @@ namespace dht11 {
     let _sensorresponding: boolean = false
 
     /**
-    * Query data from DHT11/DHT22 sensor. If you are using 4 pins/no PCB board versions, you'll need to pull up the data pin. 
-    * It is also recommended to wait 1 (DHT11) or 2 (DHT22) seconds between each query.
+    * Consulta los datos del sensor DHT11 
     */
-    //% block="leerSensor |Data pin $dataPin"
+    //% block="consultarSensor "
     //% pullUp.defl=true
     //% serialOtput.defl=false
     //% wait.defl=true
@@ -56,14 +55,10 @@ namespace dht11 {
         control.waitMicros(40)
         
         if (pins.digitalReadPin(dataPin) == 1) {
-
         } else {
-
             _sensorresponding = true
-
             while (pins.digitalReadPin(dataPin) == 0); //sensor response
             while (pins.digitalReadPin(dataPin) == 1); //sensor response
-
             //read data (5 bytes)
             for (let index = 0; index < 40; index++) {
                 while (pins.digitalReadPin(dataPin) == 1);
@@ -98,27 +93,11 @@ namespace dht11 {
     }
 
     /**
-    * Read humidity/temperature data from lastest query of DHT11/DHT22
+    * Lee la informacion de humedad o temperatura de la ultima consulta al DHT11
     */
-    //% block="Read $data"
+    //% block="Leer $data"
     export function readData(data: dataType): number {
         return data == dataType.humidity ? _humidity : _temperature
-    }
-
-    /**
-    * Determind if last query is successful (checksum ok)
-    */
-    //% block="Last query successful?"
-    export function readDataSuccessful(): boolean {
-        return _readSuccessful
-    }
-
-    /**
-    * Determind if sensor responded successfully (not disconnected, etc) in last query
-    */
-    //% block="Last query sensor responding?" advanced=true
-    export function sensorrResponding(): boolean {
-        return _sensorresponding
     }
 
 }
