@@ -5,10 +5,10 @@
 
 
 enum dataType {
-    //% block="humidity"
-    humidity,
-    //% block="temperature"
-    temperature,
+    //% block="humedad"
+    humedad,
+    //% block="temperatura"
+    temperatura,
 }
 
 //% block="Humedad y Temperatura" weight=100 color=#ff8f3f icon="\uf043"
@@ -27,7 +27,7 @@ namespace dht11 {
     //% serialOtput.defl=false
     //% wait.defl=true
     //% blockExternalInputs=true
-    export function query(dataPin: DigitalPin) {
+    export function query(dataPin: DigitalPin, data: dataType): number {
 
         //initialize
         let startTime: number = 0
@@ -88,7 +88,7 @@ namespace dht11 {
                     _humidity = resultArray[0] + resultArray[1] / 100
                     _temperature = resultArray[2] + resultArray[3] / 100
             }
-
+            return data == dataType.humedad ? _humidity : _temperature    
         }
     }
 
@@ -96,8 +96,8 @@ namespace dht11 {
     * Lee la informacion de humedad o temperatura de la ultima consulta al DHT11
     */
     //% block="Leer $data"
-    export function readData(data: dataType): number {
+ /*   export function readData(data: dataType): number {
         return data == dataType.humidity ? _humidity : _temperature
     }
-
+*/
 }
