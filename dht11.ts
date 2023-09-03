@@ -55,6 +55,7 @@ namespace dht11 {
         control.waitMicros(40)
         
         if (pins.digitalReadPin(dataPin) == 1) {
+            return -999.0
         } else {
             _sensorresponding = true
             while (pins.digitalReadPin(dataPin) == 0); //sensor response
