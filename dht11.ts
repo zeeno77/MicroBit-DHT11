@@ -22,7 +22,7 @@ namespace dht11 {
     /**
     * Consulta los datos del sensor DHT11 
     */
-    //% block="consultarSensor"
+    //% block="consultarSensor Pin $dataPin|Tipo $tipo"
     export function consultarSensor(dataPin: DigitalPin, tipo: dataType): number {
 
         //initialize
