@@ -22,12 +22,8 @@ namespace dht11 {
     /**
     * Consulta los datos del sensor DHT11 
     */
-    //% block="consultarSensor "
-    //% pullUp.defl=true
-    //% serialOtput.defl=false
-    //% wait.defl=true
-    //% blockExternalInputs=true
-    export function query(dataPin: DigitalPin, data: dataType): number {
+    //% block="consultarSensor"
+    export function consultarSensor(dataPin: DigitalPin, tipo: dataType): number {
 
         //initialize
         let startTime: number = 0
@@ -54,9 +50,7 @@ namespace dht11 {
         pins.digitalReadPin(dataPin) //pull up pin
         control.waitMicros(40)
         
-        if (pins.digitalReadPin(dataPin) == 1) {
-            return -999.0
-        } else {
+        if (pins.digitalReadPin(dataPin) != 1) {
             _sensorresponding = true
             while (pins.digitalReadPin(dataPin) == 0); //sensor response
             while (pins.digitalReadPin(dataPin) == 1); //sensor response
@@ -89,7 +83,9 @@ namespace dht11 {
                     _humidity = resultArray[0] + resultArray[1] / 100
                     _temperature = resultArray[2] + resultArray[3] / 100
             }
-            return data == dataType.humedad ? _humidity : _temperature    
+            return tipo == dataType.humedad ? _humidity : _temperature    
+        }else{
+            return _humidity
         }
     }
 
