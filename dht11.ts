@@ -84,6 +84,8 @@ namespace dht11 {
                     _temperature = resultArray[2] + resultArray[3] / 100
             }
             return tipo == dataType.humedad ? _humidity : _temperature    
+        }else{
+            return -999.0;
         }
     }
 
